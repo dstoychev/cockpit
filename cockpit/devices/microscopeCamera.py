@@ -211,7 +211,8 @@ class MicroscopeCamera(MicroscopeBase, CameraDevice):
         # a copy. This workaround from Pyro4 maintainer.
         asproxy = Pyro4.Proxy(self._proxy._pyroUri)
         asproxy._pyroAsync()
-        result = asproxy.enable()
+        asproxy.enable()
+        result = asproxy.get_is_enabled()
         result.wait(timeout=10)
         self.enabled = result.value
         if self.enabled:
